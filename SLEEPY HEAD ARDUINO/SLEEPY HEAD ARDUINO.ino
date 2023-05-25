@@ -1,62 +1,74 @@
-// Starting of Program
-int IN1a = 8;
-int IN2a = 7;
-int IN3b = 5;
-int IN4b = 4;
-char val;
+int IN1=2 ;
+int IN2=3 ;
+int IN3=4 ;
+int IN4=8;
+int EN1=9;
+int EN2=10;
+char c;
+int i;
 
-void setup() 
-{  
-pinMode(IN1a, OUTPUT);  // Digital pin 10 set as output Pin
-pinMode(IN2a, OUTPUT);  // Digital pin 11 set as output Pin
-pinMode(IN3b, OUTPUT);  // Digital pin 12 set as output Pin
-pinMode(IN4b, OUTPUT);  // Digital pin 13 set as output Pin
-Serial.begin(9600);
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(IN1,OUTPUT);
+  pinMode(IN2,OUTPUT);
+  pinMode(IN3,OUTPUT);
+  pinMode(IN4,OUTPUT);
+  pinMode(EN2,OUTPUT);
+  pinMode(EN2,OUTPUT);
+  Serial.begin(9600);
+
+
 }
 
-void loop()
-{
-  while (Serial.available() > 0)
-  {
-  val = Serial.read();
-  Serial.println(val);
-  }
-
-  if( val == 'F') // Forward
-    {
-    digitalWrite(IN1a, HIGH);
-    digitalWrite(IN2a, LOW);
-    digitalWrite(IN3b, LOW);
-    digitalWrite(IN4b, HIGH); 
-    }
-  else if(val == 'B') // Backward
-    {
-      digitalWrite(IN1a, LOW);
-      digitalWrite(IN2a, HIGH);
-      digitalWrite(IN3b, HIGH);
-      digitalWrite(IN4b, LOW); 
-    }
+void loop() {
   
-    else if(val == 'L') //Left
-    {
-    digitalWrite(IN1a, HIGH);
-    digitalWrite(IN2a, LOW);
-    digitalWrite(IN3b, HIGH);
-    digitalWrite(IN4b, LOW);
+  while(Serial.available()>0){
+    c=Serial.read();
+    Serial.println(c);
+  }
+ 
+
+  if(c=='A'){
+    digitalWrite(IN1,HIGH);
+    digitalWrite(IN2,LOW);
+    digitalWrite(IN3,HIGH);
+    digitalWrite(IN4,LOW);
+    analogWrite(EN1,255);
+      analogWrite(EN2,255);
+
+  }
+  else if(c=='D'){
+    digitalWrite(IN1,HIGH);
+    digitalWrite(IN2,LOW);
+    digitalWrite(IN3,HIGH);
+    digitalWrite(IN4,LOW);
+    for(i=255;i>80;i--){
+      analogWrite(EN1,i);
+      analogWrite(EN2,i);
+      
+      delay(30);
     }
-    else if(val == 'R') //Right
-    {
-    digitalWrite(IN1a, LOW);
-    digitalWrite(IN2a, HIGH);
-    digitalWrite(IN3b, LOW);
-    digitalWrite(IN4b, HIGH); 
+
+  }
+  else if(c=='S'){
+    digitalWrite(IN1,HIGH);
+    digitalWrite(IN2,LOW);
+    digitalWrite(IN3,HIGH);
+    digitalWrite(IN4,LOW);
+    for(i=255;i>0;i--){
+      analogWrite(EN1,i);
+      analogWrite(EN2,i);
+      
+      delay(10);
     }
-    
-  else if(val == 'S') //Stop
-    {
-    digitalWrite(IN1a, LOW);
-    digitalWrite(IN2a, LOW);
-    digitalWrite(IN3b, LOW);
-    digitalWrite(IN4b,LOW);
-}
+
+
+   }
+   else if(c=='K'){
+     digitalWrite(IN1,LOW);
+    digitalWrite(IN2,LOW);
+    digitalWrite(IN3,LOW);
+    digitalWrite(IN4,LOW);
+   }
+
 }
